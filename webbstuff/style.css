@@ -1,1 +1,70 @@
-stuff mothafuckaaaaa
+/*
+----------------------------------------------------------------------------------
+
+GoCRAZY
+Programmerings cirkel
+Först skapad: 2012-10-16
+
+----------------------------------------------------------------------------------
+*//*
+----------------------------------------------------------------------------------
+
+Namn: Jesper Vesterberg
+      Daniel Häggkvist
+      Olov Långström
+----------------------------------------------------------------------------------
+*/
+
+
+#container {
+
+}
+
+#header {
+border:solid;
+padding-left: 30px;
+}
+
+a {
+text-decoration:none;
+color: Green;
+}
+
+a:hover {
+text-decoration:underline;
+color: orange;
+}
+
+p {
+font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+body {
+
+}
+
+#rightsidebar {
+
+}
+
+#leftsidebar {
+
+}
+
+.rightsidebarbox {
+
+}
+
+.leftsidebarbox {
+
+}
+
+#centerbar {
+
+}
+
+#footer {
+border:solid;
+clear: both;
+text-align:center;
+}
