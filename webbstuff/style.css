@@ -30,6 +30,11 @@ text-decoration:none;
 color: Green;
 }
 
+#titel {
+font-family: Helvetica, Arial, Sans-serif;
+color: grey;
+}
+
 a:hover {
 text-decoration:underline;
 color: orange;
@@ -51,15 +56,15 @@ body {
 
 }
 
+#centerbar {
+
+}
+
 .rightsidebarbox {
 
 }
 
 .leftsidebarbox {
-
-}
-
-#centerbar {
 
 }
 
