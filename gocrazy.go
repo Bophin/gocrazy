@@ -12,6 +12,7 @@ func main() {
 	fmt.Println("Hej!")
 	fmt.Println("Hej världen! Jag är med <3")
 	http.HandleFunc("/", indexHandler)
+	http.Handle("/webbstuff/", http.StripPrefix("/webbstuff/", http.FileServer(http.Dir("webbstuff"))))
 	http.ListenAndServe(":8080", nil)
 }
 
