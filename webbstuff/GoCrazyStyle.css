@@ -1,0 +1,95 @@
+/*
+----------------------------------------------------------------------------------
+
+GoCRAZY
+Programmerings cirkel
+Först skapad: 2012-10-16
+
+----------------------------------------------------------------------------------
+*//*
+----------------------------------------------------------------------------------
+
+Namn: Jesper Vesterberg
+      Daniel Häggkvist
+      Olov Långström
+----------------------------------------------------------------------------------
+*/
+
+
+#container {
+background:white;
+margin-left: auto;
+margin-right: auto;
+max-width: 1400px;
+min-width: 1000px;
+background-image:url('paw.png')
+}
+
+#header {
+border:solid;
+padding-left: 30px;
+}
+
+a {
+text-decoration:none;
+color: Green;
+}
+
+#titel {
+font-family: Helvetica, Arial, Sans-serif;
+color: grey;
+}
+
+a:hover {
+text-decoration:underline;
+color: orange;
+}
+
+p {
+font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+}
+
+body {
+background:orange;
+}
+
+#rightsidebar {
+float:right;
+border:solid;
+border-top:none;
+border-bottom:none;
+height:700px;
+}
+
+#leftsidebar {
+float:left;
+border:solid;
+border-top:none;
+border-bottom:none;
+height:700px;
+}
+
+#centerbar {
+padding-left:20px;
+padding-right:20px;
+margin-left:180px;
+margin-right:180px;
+}
+
+.rightsidebarbox {
+border-bottom:dotted;
+margin-left: 1em;
+margin-right: 1em;
+}
+
+.leftsidebarbox {
+border-bottom:dotted;
+margin-left: 1em;
+margin-right: 1em;
+}
+
+#footer {
+border:solid;
+clear: both;
+text-align:center;
+}
