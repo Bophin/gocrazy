@@ -25,14 +25,17 @@ min-width: 1000px;
 }
 
 img.paw {
-width:30%;
-z-index:-1;
-margin-right:0px;
+position:relative;
+left: 60%;
+top:450px;
+width:230px;
+height:230px;
 }
 
 #header {
 border:solid;
 padding-left: 30px;
+background-image:url('headerbackgroundpic.png')
 }
 
 a {
@@ -42,7 +45,7 @@ color: Green;
 
 #titel {
 font-family: Helvetica, Arial, Sans-serif;
-color: grey;
+color: #5577cc;
 }
 
 a:hover {
