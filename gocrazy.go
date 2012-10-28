@@ -15,5 +15,6 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	templ.Execute(w, nil)
+	t, _ := template.ParseFiles("webbstuff/GoCrazyIndex.html")
+	t.Execute(w, nil)
 }
