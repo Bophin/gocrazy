@@ -1,19 +1,17 @@
 package main
 
 import (
-	"fmt"
+//	"fmt"
 	"net/http"
 	"html/template"
 )
 
-var templ = template.Must(template.ParseFiles("webbstuff/index.html"))
+var templ = template.Must(template.ParseFiles("webbstuff/GoCrazyIndex.html"))
 
 func main() {
-	fmt.Println("Hej!")
-	fmt.Println("Hej världen! Jag är med <3")
 	http.HandleFunc("/", indexHandler)
 	http.Handle("/webbstuff/", http.StripPrefix("/webbstuff/", http.FileServer(http.Dir("webbstuff"))))
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
