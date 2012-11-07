@@ -10,6 +10,7 @@ var templ = template.Must(template.ParseFiles("webbstuff/GoCrazyIndex.html"))
 
 func main() {
 	http.HandleFunc("/", indexHandler)
+	/*http.dir VERY UNSECURE*/
 	http.Handle("/webbstuff/", http.StripPrefix("/webbstuff/", http.FileServer(http.Dir("webbstuff"))))
 	http.ListenAndServe(":80", nil)
 }
