@@ -1,4 +1,4 @@
 Make webserver!
 Add SSH key to skip password check --> https://help.github.com/articles/generating-ssh-keys
 
-Read into bufio to see how it works
+Fixing the folder hierachy so everything becomes more "logical"
