@@ -1,3 +1,5 @@
-Make webserver!
-Add SSH key to skip password check --> https://help.github.com/articles/generating-ssh-keys
-Testing commit!
+Investigate https.
+Store passwords in file. With sha256 hash?
+Timestamp for posts.
+Fix folder structure and accessible paths.
+merge auth with master, scary...
