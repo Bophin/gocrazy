@@ -136,15 +136,20 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	
 	//Reading in post files content and parse them into template
 	for i:=0; i<j;i++ {
-		f, err := (files+"posts/"+p[i].Title + ".txt")
+		f_name, err := (files+"posts/"+p[i].Title + ".txt")
 		if err != nil {
 			panic(err)
 		}
+		f, err := os.Open(files+"posts/"+p[i].Title + ".txt", os.O_RDWR, 0644)
 		if !isStamped(f){
 			stamp(f)
 		}
+		defer f.Close()
 		p[i].CreateTime = postCreateTime(f)
-		p[i].Body = string(holder)
+	}
+	
+	for i:=0;i<j;i++{
+		//Implement quicksort ='(
 	}
 	
 	t_index.Execute(w, template.HTML(c))
