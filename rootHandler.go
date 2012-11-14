@@ -53,9 +53,10 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			j++
 		}
 	}
+
 	
 	//Reading in post files content and parse them into template
-	for i:=0; i<j;i++ {
+	for i:=0; i<len(p);i++ {
 		holder, _ := ioutil.ReadFile(files+"posts/"+p[i].Title + ".txt")
 		p[i].Body = string(holder)
 		t_posts.Execute(&c, p[i])
