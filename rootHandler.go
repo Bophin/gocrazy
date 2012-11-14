@@ -11,6 +11,7 @@ import (
 
 //post file ending
 var post_txt = regexp.MustCompile(`\.txt$`)
+var files = "content/root/"
 
 type Posts struct {
 	Title string
@@ -27,17 +28,17 @@ func (c *Content) Write(p []byte) (n int, err error) {
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var c Content
 	
-	t_posts, err := template.ParseFiles("content/html_templates/posts.html")
+	t_posts, err := template.ParseFiles(files+"posts.html")
 	if err != nil {
 		panic(err)
 	}
-	t_index, err := template.ParseFiles("webbstuff/GoCrazyIndex.html")
+	t_index, err := template.ParseFiles("main_web/main.html")
 	if err != nil {
 		panic(err)
 	}
 	
 	//Skulle vilja ha en bättre logik över vars saker ligger. 
-	dir, err := ioutil.ReadDir(`./content/posts/GoCrazyIndex/`)
+	dir, err := ioutil.ReadDir(files+"posts/")
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +57,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	
 	//Reading in post files content and parse them into template
 	for i:=0; i<j;i++ {
-		holder, _ := ioutil.ReadFile("./content/posts/GoCrazyIndex/"+p[i].Title + ".txt")
+		holder, _ := ioutil.ReadFile(files+"posts/"+p[i].Title + ".txt")
 		p[i].Body = string(holder)
 		t_posts.Execute(&c, p[i])
 	}
