@@ -9,9 +9,9 @@ import (
 
 
 
-//post file ending
-var post_txt = regexp.MustCompile(`\.txt$`)
-var files = "content/root/"
+
+var post_txt = regexp.MustCompile(`\.txt$`)	//post file ending
+var files = "content/root/"					//Files related to this page
 
 type Posts struct {
 	Title string
@@ -37,7 +37,6 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	
-	//Skulle vilja ha en bättre logik över vars saker ligger. 
 	dir, err := ioutil.ReadDir(files+"posts/")
 	if err != nil {
 		panic(err)
