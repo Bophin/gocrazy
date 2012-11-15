@@ -8,7 +8,7 @@ import (
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 
-	t_login, err := template.ParseFiles(files + "login.html")
+	t_login, err := template.ParseFiles("main_web/login.html")
 	if err != nil {
 		panic(err)
 	}
