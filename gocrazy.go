@@ -2,22 +2,15 @@ package main
 
 import (
 	"net/http"
-	"html/template"
 )
 
-var templ = template.Must(template.ParseFiles("webbstuff/GoCrazyIndex.html"))
-var login = template.Must(template.ParseFiles("webbstuff/login.html"))
+
 
 func main() {
-	http.HandleFunc("/", indexHandler)
-	/*http.dir VERY UNSECURE*/
-	http.Handle("/webbstuff/", http.StripPrefix("/webbstuff/", http.FileServer(http.Dir("webbstuff"))))
+	http.HandleFunc("/", rootHandler)
+	//Make sure nothing important lies in "main_web"
+	http.Handle("/main_web/", http.StripPrefix("/main_web/", http.FileServer(http.Dir("main_web"))))
 	http.HandleFunc("/login/", loginHandler);
 	http.ListenAndServe(":80", nil)
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("webbstuff/GoCrazyIndex.html")
-	t.Execute(w, nil)
 }
 
