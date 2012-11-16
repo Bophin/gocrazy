@@ -1,1 +1,2 @@
+Fri Nov 16 22:46:13 CET 2012
 Nu har jag gjort första posten och jag vill att ska se snyggt ut. Html mallarna ligger under content samt alla inlägg ligger under posts under content mappen. Förhoppningsvis blir detta bra tillsvidare. 
