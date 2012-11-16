@@ -9,17 +9,26 @@ import (
 	"io"
 	"bufio"
 	"time"
+	"sort"
 )
 
 
 var post_txt = regexp.MustCompile(`\.txt$`)	//post file ending
 var files = "content/root/"					//Files related to this page
 
-type Posts struct {
+type Post struct {
 	Title string
 	Body string
 	CreatTime time.Time
 }
+
+type PostSlice []Post
+
+//Sort methods for PostSlice
+func (p PostSlice) Len() int { return len(p) }
+func (p PostSlice) Less(i, j int) bool { return p[i].CreatTime.Unix() > p[j].CreatTime.Unix() }
+func (p PostSlice) Swap(i, j int) {p[i], p[j] = p[j], p[i] }
+
 
 type Content string
 
@@ -27,6 +36,7 @@ func (c *Content) Write(p []byte) (n int, err error) {
 	*c = *c+Content(p)
 	return len(p), nil
 }
+
 
 //Time stamp related =======#
 func firstNil(b []byte) int {
@@ -61,7 +71,7 @@ func stamp(f *os.File) {
 	buf = append([]byte(t), buf...)
 	
 	// Write the buffer
-	f.Seek(0,0) //Reset the seek after all the reads.
+	f.Seek(0,0) // Making sure we start correctly.
 	n := firstNil(buf)	//Making sure not to write nil bytes. 
 	_, err := f_w.Write(buf[:n])
 	if err != nil {
@@ -75,6 +85,7 @@ func stamp(f *os.File) {
 }
 
 func isStamped(f *os.File) bool {
+	f.Seek(0,0) //Reset the seek after all the reads.
 	f_r := bufio.NewReader(f)
 	line, err := f_r.ReadSlice('\n')
 	if err != nil && err != io.EOF {
@@ -105,6 +116,37 @@ func postCreateTime(f *os.File) time.Time {
 }
 //==================#
 
+func readPost(f *os.File) string {
+	f.Seek(0,0) //Reset the seek after all the reads.
+	f_r := bufio.NewReader(f)
+	_, err := f_r.ReadSlice('\n') // Do not want the timestamp in the post
+	if err != nil && err != io.EOF {
+		panic(err)
+	}
+	
+	//Some buffer optimisation, see golang ioutil ReadFile source
+	var b_size int64
+	if fi, err := f.Stat(); err == nil {
+		if f_size := fi.Size(); f_size < 1e9 {
+			b_size = f_size
+		}
+	}
+	if b_size == 0 { b_size = 10 }
+	
+	postBody := make([]byte, b_size)
+	for {
+		n, err := f_r.Read(postBody)
+		if err != nil && err != io.EOF {
+			panic(err)
+		}
+		if n == 0 {
+			break;
+		}
+	}
+	m := firstNil(postBody) // just incase
+	return string(postBody[:m])
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var c Content
 	
@@ -121,7 +163,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	p := make([]Posts, len(dir))
+	var p PostSlice
+	p = make([]Post, len(dir))
 	
 	//Finding the post files
 	j := 0
@@ -134,23 +177,26 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	
-	//Reading in post files content and parse them into template
-	for i:=0; i<j;i++ {
-		f_name, err := (files+"posts/"+p[i].Title + ".txt")
+	
+	//Reading in posts and get the timestamp/timestamp them
+	for i:=0; i<len(p);i++ {
+		f, err := os.OpenFile(files+"posts/"+p[i].Title + ".txt", os.O_RDWR, 0644)
 		if err != nil {
 			panic(err)
 		}
-		f, err := os.Open(files+"posts/"+p[i].Title + ".txt", os.O_RDWR, 0644)
+		defer f.Close()
+		
 		if !isStamped(f){
 			stamp(f)
 		}
 		defer f.Close()
-		p[i].CreateTime = postCreateTime(f)
+		p[i].Body = readPost(f)
+		p[i].CreatTime = postCreateTime(f)
 	}
-	
-	for i:=0;i<j;i++{
-		//Implement quicksort ='(
-	}
+	//sort Posts after create time
+	sort.Sort(p)
+	//Parse the posts
+	for i:=0; i<len(p);i++{ t_posts.Execute(&c, p[i]) } 
 	
 	t_index.Execute(w, template.HTML(c))
 }
