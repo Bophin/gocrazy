@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http"
 	"flag"
+	"net/http"
 )
 
 var port = flag.String("p", "80", "Sets server port")
@@ -13,7 +13,6 @@ func main() {
 	http.HandleFunc("/", rootHandler)
 	//Make sure nothing important lies in "main_web"
 	http.Handle("/main_web/", http.StripPrefix("/main_web/", http.FileServer(http.Dir("main_web"))))
-	http.HandleFunc("/login/", loginHandler);
-	http.ListenAndServe(":" + *port, nil)
+	http.HandleFunc("/login/", loginHandler)
+	http.ListenAndServe(":"+*port, nil)
 }
-

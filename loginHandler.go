@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"html/template"
 	"io/ioutil"
+	"net/http"
 	"strings"
 )
 
